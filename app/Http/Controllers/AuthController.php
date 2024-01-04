@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthLoginRequest;
 use App\Http\Resources\TokenResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,5 +30,10 @@ class AuthController extends Controller
         return response()->json([
             "message" => "unauthorized"
         ], 401);
+    }
+
+    public function me(): JsonResponse
+    {
+        return response()->json(Auth::user());
     }
 }
