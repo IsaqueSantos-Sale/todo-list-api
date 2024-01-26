@@ -4,11 +4,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::controller(AuthController::class)
-    ->group(function () {
-        Route::post('/login', 'login')->name('auth.login');
-        Route::get('/me', 'me')->name('auth.me')->middleware('auth:sanctum');
+    ->middleware('auth:sanctum')
+    ->group(function () {;
+        Route::get('/logout', 'logout')->name('auth.logout');
+        Route::get('/me', 'me')->name('auth.me');
     });
 
 

@@ -7,12 +7,14 @@ use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     public function index(): JsonResponse
     {
-        $task = TaskResource::collection(Task::all());
+        $user = Auth::user();
+        $task = TaskResource::collection($user->tasks);
         return response()->json($task);
     }
 

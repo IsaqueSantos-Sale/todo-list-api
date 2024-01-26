@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 
 class AuthLoginRequest extends FormRequest
 {
@@ -14,12 +15,6 @@ class AuthLoginRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
-    }
-
-    public function failedValidation(Validator $validator): never
-    {
-        $errors = ["errors" => $validator->errors()];
-        throw new HttpResponseException(response()->json($errors));
     }
 
     /**

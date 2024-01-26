@@ -27,13 +27,20 @@ class AuthController extends Controller
         }
 
 
-        return response()->json([
-            "message" => "unauthorized"
-        ], 401);
+        return response()->json('invalid credential', 401);
     }
 
     public function me(): JsonResponse
     {
         return response()->json(Auth::user());
+    }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $user = $request->user();
+
+        $user->tokens()->delete();
+
+        return response()->json(null, 204);
     }
 }
